@@ -6,6 +6,7 @@
 ---
 
 ## Challenge 1: XML External Entity (XXE)
+<img width="383" height="311" alt="image" src="https://github.com/user-attachments/assets/2fcdebd6-ea3d-4cff-906d-ebaea1a1ddf5" />
 
 ### Reconnaissance
 
