@@ -100,7 +100,9 @@ To prevent XXE vulnerabilities, XML parsers must explicitly disable DTDs and ext
 parser = etree.XMLParser(resolve_entities=False, no_network=True)
 tree = etree.fromstring(xml_input, parser)
 ```
-## Challenge 2: OTP Bypass via PHP Type Juggling
+## Challenge 2:
+<img width="382" height="326" alt="image" src="https://github.com/user-attachments/assets/b99035f2-a478-4311-9d22-3d48c327ad5c" />
+
 
 ### Reconnaissance
 
