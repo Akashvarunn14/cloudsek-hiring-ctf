@@ -351,34 +351,41 @@ The PHP script processes the boolean `true`. The loose comparison `"OTP_STRING" 
 **Response:**
 ![Script Success](images/script-success.png)
 
-## Web3
+## Challenge 4: Web3 – JWT Privilege Escalation
 
-By going into the given URL:  
+### Reconnaissance
+
+The analysis started by visiting the following BeVigil report:
+
 https://bevigil.com/report/com.strikebank.netbanking
 
-I started by analyzing the Android application's static code using an automated scanning tool (**BeVigil**).
+Using **BeVigil**, I performed static analysis on the Android application.  
+The scan revealed multiple **hardcoded secrets** inside the application resources file:
 
-The report revealed several critical hardcoded secrets in the  
-`resources/res/values/strings.xml` file:
+resources/res/values/strings.xml
+
 
 ![BeVigil Secrets](images/bevigil-secrets.png)
 
-![Additional Secrets](images/Pasted image 20251206113541.png)
+![Additional Secrets](images/Pasted%20image%2020251206113541.png)
 
 ---
 
 ### Secret Cookie Discovery
 
-Upon reviewing the extracted values, I identified a **secret authentication cookie**.
+While reviewing the extracted strings, a **JWT signing secret** was identified.
 
 ![JWT Secret](images/jwt-secret.png)
 
-Further analysis revealed entries inside the hosts configuration, which led to additional endpoints.
+Further analysis revealed host configuration entries that pointed to additional internal endpoints.
 
-![Hosts File](images/Pasted image 20251206113609.png)
-![Discovered Endpoint](images/Pasted image 20251206124233.png)
+![Hosts File](images/Pasted%20image%2020251206113609.png)
 
-![Application Dashboard](images/Pasted image 20251206123210.png)
+![Discovered Endpoint](images/Pasted%20image%2020251206124233.png)
+
+Visiting the discovered endpoint revealed the application dashboard.
+
+![Application Dashboard](images/Pasted%20image%2020251206123210.png)
 
 ---
 
@@ -386,32 +393,35 @@ Further analysis revealed entries inside the hosts configuration, which led to a
 
 After logging in as a normal user, no privileged endpoints were accessible.
 
-I inspected the **Application** tab and realized that we already had a **JWT signing secret** from the earlier analysis.
+I inspected the browser’s **Application** tab and realized that a **JWT signing secret** had already been leaked during static analysis.
 
+The JWT token was decoded to inspect its contents:
 
-The JWT was decoded:
+![JWT Decode](images/Pasted%20image%2020251206124452.png)
 
-![JWT Decode](images/Pasted image 20251206124452.png)
+I modified the JWT payload by changing the username to `admin` and re-signed the token using the leaked secret:
 
-I modified the payload by changing the username to `admin` and re-signed the token using the leaked secret:
 str!k3b4nk@1009%sup3r!s3cr37
 
-![JWT Modify](images/Pasted image 20251206124534.png)
-![JWT Re-sign](images/Pasted image 20251206113825.png)
 
-
+---
 
 ### Cookie Injection & Flag Retrieval
 
-The modified JWT was replaced in the browser’s cookies.
+The modified JWT was manually replaced in the browser’s cookies.
 
-![Cookie Replacement](images/Pasted image 20251206125110.png)
-
-![Page Reload](images/Pasted image 20251206113519.png)
-
-After reloading the page, the privilege escalation succeeded and the flag was revealed.
+After refreshing the page, the privilege escalation succeeded and the application granted **admin-level access**, revealing the flag.
 
 ![Web3 Flag](images/web3-flag.png)
-        
+
+---
+
+### Key Takeaways
+
+- Hardcoded secrets in mobile applications can directly compromise backend security
+- Leaked JWT signing secrets enable full privilege escalation
+- Static analysis tools like **BeVigil** are highly effective during reconnaissance
+- JWT secrets must never be embedded in client-side applications
+
 
     
