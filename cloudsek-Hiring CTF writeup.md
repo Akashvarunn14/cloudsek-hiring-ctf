@@ -107,14 +107,15 @@ tree = etree.fromstring(xml_input, parser)
 ### Reconnaissance
 
 The login page titled **“Triangle – Log in to get the surprise”** required a username, password, and three OTP values.
+<img width="595" height="296" alt="image" src="https://github.com/user-attachments/assets/88901fc1-ca6b-4990-932d-2369bbd7998d" />
 
-![OTP Login Page](images/Pasted image 20251206125245.png)
 
 Inspecting the HTML source revealed leftover `.bak` files.
 
 The authentication logic was handled by `login.php` and `google2fa.php`.
 
-![Fetch Logic](images/Pasted image 20251206122046.png)
+<img width="587" height="298" alt="image" src="https://github.com/user-attachments/assets/2308d9ac-f673-448d-8880-269afdd46f21" />
+
 
 ---
 
@@ -143,6 +144,8 @@ Hardcoded credentials were found:
 ---
 
 #### google2fa.php
+<img width="576" height="198" alt="image" src="https://github.com/user-attachments/assets/69b5acd8-03f9-4fd6-b373-e2dfd260ac41" />
+
 
 OTP verification logic:
 
@@ -168,6 +171,8 @@ if (self::oath_hotp($binarySeed, $ts) == $key)
     
     
  #### **Analyzing `google2fa.php`**
+ <img width="590" height="647" alt="image" src="https://github.com/user-attachments/assets/a78e799c-7f2f-49c3-ad8b-f15dc3b93815" />
+
 
 Next, we examine the `verify_key` function to see how it compares the user's input against the secret key.
 
