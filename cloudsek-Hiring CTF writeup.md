@@ -259,15 +259,16 @@ The server bypasses the checks and returns the flag.
 
 **Response:**
 
-![OTP Bypass Flag](images/otp-bypass-flag.png)
+<img width="510" height="609" alt="image" src="https://github.com/user-attachments/assets/a9fb250a-fe22-4f88-9ece-88ac3300a17d" />
+
 
 ---
 
 ## Programming / Scripting – Question 1
 
-![Programming Question](images/scripting-question.png)
+<img width="389" height="235" alt="image" src="https://github.com/user-attachments/assets/8e55b9aa-eebe-4ad9-9b44-421498c7a40f" />
+<img width="578" height="326" alt="image" src="https://github.com/user-attachments/assets/686684bf-2a1d-4755-bd58-10c2fc423e68" />
 
-![Programming Constraints](images/php-type-juggling.png)
 
 ---
 
@@ -372,7 +373,8 @@ if __name__ == "__main__":
 The PHP script processes the boolean `true`. The loose comparison `"OTP_STRING" == true` evaluates to true for all three keys. The server bypasses the checks and returns the flag.
 
 **Response:**
-![Script Success](images/script-success.png)
+<img width="589" height="114" alt="image" src="https://github.com/user-attachments/assets/cd159e77-e129-4e5c-aaeb-a5c7bf426bb5" />
+
 
 ## Challenge 4: Web3 – JWT Privilege Escalation
 
