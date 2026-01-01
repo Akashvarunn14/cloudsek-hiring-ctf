@@ -1,4 +1,4 @@
-# CloudSEK Hiring CTF – Writeup
+# CloudSEK Hiring CTF-1 – Writeup
 
 **Author:** Akash Varunn D  
 **Username:** @kvnn  
