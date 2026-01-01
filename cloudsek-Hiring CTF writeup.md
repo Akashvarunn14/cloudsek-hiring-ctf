@@ -2,7 +2,7 @@
 
 **Author:** Akash Varunn D  
 **Username:** @kvnn  
-
+![Challenge Home](images/challenge1-home.png)
 ---
 
 ## Challenge 1
@@ -11,10 +11,13 @@
 ### Reconnaissance
 
 Upon inspecting the page source, a suspicious JavaScript snippet was found handling the form submission.
+<img width="590" height="398" alt="image" src="https://github.com/user-attachments/assets/b0e894df-9306-47dc-89ce-3325381f7975" />
+
 
 Instead of sending a standard POST request with form data, the script explicitly constructs an **XML document** on the client side.
 
-![Challenge Home](images/challenge1-home.png)
+
+<img width="587" height="363" alt="image" src="https://github.com/user-attachments/assets/731878cb-f5bb-4cb9-9ce6-ed895cb88286" />
 
 ```javascript
 // Intercept the form submit and send XML instead of form-encoded data
@@ -23,6 +26,7 @@ const xml = `<?xml version="1.0" encoding="UTF-8"?>
     <name>${name}</name>
     <message>${message}</message>
 </feedback>`;
+
 ```
 ## XML External Entity (XXE)
 
@@ -84,6 +88,8 @@ Changing the target to `file:///flag.txt` succeeded.
 Sending this payload via **Burp Repeater** caused the server to resolve the external entity and return the contents of `/flag.txt`.
 
 ---
+<img width="501" height="625" alt="image" src="https://github.com/user-attachments/assets/d9973bfb-ba99-431e-bff2-418715ffaaf3" />
+
 
 ## Mitigation
 
