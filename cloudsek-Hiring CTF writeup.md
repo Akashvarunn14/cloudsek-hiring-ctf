@@ -251,25 +251,34 @@ The server bypasses the checks and returns the flag.
 
 ## Programming / Scripting – Question 1
 
-![Programming Question](images/Pasted image 20251206125319.png)
+![Programming Question](images/scripting-question.png)
 
-![Programming Constraints](images/Pasted image 20251206122423.png)
+![Programming Constraints](images/php-type-juggling.png)
 
-First, we attempted to inspect the format of the data returned by the `/task` endpoint. Since the instructions warned about a timer, we knew we had to script this interaction.
+---
 
-We ran a preliminary Python script to print the raw response from `/task`:
+### Problem Overview
 
-Python
+The `/task` endpoint returns a random string that must be transformed and submitted within a strict time limit.  
+Because of the timer restriction, solving this manually is impractical and requires scripting.
 
-```
+---
+
+### Initial Reconnaissance
+
+To understand the response format, a preliminary request was sent to the `/task` endpoint:
+
+```python
 r = requests.get("http://15.206.47.5:9090/task")
 print(r.text)
+
 ```
 
 ![Task Response](images/task-response.png)
 
-This confirmed that the target string is embedded inside a `<p>` tag, prefixed with  
-`"Here is the input string: "`.
+This confirmed that the target string is embedded inside a `<p>` tag and prefixed with:
+
+
 
 To solve this, we needed a script that could perform the operations faster than a human.  
 The critical component was maintaining **Session Persistence**.
