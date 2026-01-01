@@ -1,10 +1,10 @@
 Author: Akash Varunn D
 username:@kvnn
-![[images/Pasted image 20251206125430.png]]
+![](images/Pasted image 20251206125430.png)
 
 
 
-![[images/Pasted image 20251206125257.png]]![[images/Pasted image 20251206121900.png]]
+![](images/Pasted image 20251206125257.png]]![[images/Pasted image 20251206121900.png)
 
 
 
@@ -12,7 +12,7 @@ username:@kvnn
 
 
 Upon inspecting the page source, a suspicious JavaScript snippet was found handling the form submission. Instead of sending a standard POST request with form data, the script explicitly constructs an **XML document** on the client side:
-![[images/Pasted image 20251206121519.png]]
+![](images/Pasted image 20251206121519.png)
 
 
 
@@ -75,7 +75,7 @@ XML
 
 Sending this payload via Burp Repeater resulted in the server parsing the `&xxe;` entity, reading `/flag.txt`, and returning the content in the HTTP response.
 
-![[images/Pasted image 20251206102339.png]]
+![](images/Pasted image 20251206102339.png)
 
 
 To prevent XXE vulnerabilities, the XML parser configuration must explicitly disable DTDs and external entities.
@@ -96,9 +96,9 @@ tree = etree.fromstring(xml_input, parser)
 ---
 
 2nd 
-![[images/Pasted image 20251206125245.png]]
+![](images/Pasted image 20251206125245.png)
 
-![[images/Pasted image 20251206121932.png]]
+![](images/Pasted image 20251206121932.png)
 
 
 
@@ -113,14 +113,14 @@ tree = etree.fromstring(xml_input, parser)
 Upon accessing the challenge URL, we are presented with a login page titled "Triangle - Log in to get the surprise." The form requests a Username, Password, and three distinct One-Time Passwords (OTPs).
 
 We begin by inspecting the HTML source code (`Ctrl+U` or Right Click -> View Page Source). At the bottom of the HTML, we find a suspicious comment left by the developers:
-![[images/Pasted image 20251206122020.png]]
+![](images/Pasted image 20251206122020.png)
 
 This comment reveals two critical pieces of information:
 
 1. **Backup Files:** There are leftover `.bak` files on the server.
     
 2. **Filenames:** The authentication logic is likely handled by `google2fa.php`, and the main login logic (inferred from the `fetch` request in the script) is `login.php`.
-![[images/Pasted image 20251206122046.png]]
+![](images/Pasted image 20251206122046.png)
     
 
 ### **2. Source Code Retrieval**
@@ -137,7 +137,7 @@ Both files are successfully downloaded, giving us the server-side source code.
 ### **3. Code Analysis**
 
 #### **Analyzing `login.php`**
-![[images/Pasted image 20251206122211.png]]
+![](images/Pasted image 20251206122211.png)
 
 First, we look at the main login script to find valid credentials and understand the flow.
 
@@ -257,13 +257,13 @@ The PHP script processes the boolean `true`. The loose comparison `"OTP_STRING" 
 
 **Response:**
 
-![[images/Pasted image 20251206103032.png]]
+![](images/Pasted image 20251206103032.png)
 
 
 **Programming/scripting - ques1**
-![[images/Pasted image 20251206125319.png]]
+![](images/Pasted image 20251206125319.png)
 
-![[images/Pasted image 20251206122423.png]]
+![](images/Pasted image 20251206122423.png)
 
 First, we attempted to inspect the format of the data returned by the `/task` endpoint. Since the instructions warned about a timer, we knew we had to script this interaction.
 
@@ -275,7 +275,7 @@ Python
 r = requests.get("http://15.206.47.5:9090/task")
 print(r.text)
 ```
-![[images/Pasted image 20251206122531.png]]
+![](images/Pasted image 20251206122531.png)
 This confirmed that the target string is embedded inside a `<p>` tag, prefixed with `"Here is the input string: "`.
 
 To solve this, we needed a script that could perform the operations faster than a human. The critical component was maintaining **Session Persistence**.
@@ -352,7 +352,7 @@ if __name__ == "__main__":
 	solve()
 
 
-![[images/Pasted image 20251206122714.png]]
+![](images/Pasted image 20251206122714.png)
 
 
 **Web3**
@@ -362,43 +362,43 @@ https://bevigil.com/report/com.strikebank.netbanking
 
 
 I started by analyzing the Android application's static code using an automated scanning tool (BeVigil). The report revealed several critical hardcoded secrets in the `resources/res/values/strings.xml` file:
-![[images/Pasted image 20251206110732.png]]
+![](images/Pasted image 20251206110732.png)
 
-![[images/Pasted image 20251206113541.png]]
+![](images/Pasted image 20251206113541.png)
 
 upon seeing the code i found the secret cookie 
-![[images/Pasted image 20251206113833.png]]
+![](images/Pasted image 20251206113833.png)
 
 upon find this and further analysis i found this in hosts which lead me to this
 
-![[images/Pasted image 20251206113609.png]]
-![[images/Pasted image 20251206124233.png]]
+![](images/Pasted image 20251206113609.png)
+![](images/Pasted image 20251206124233.png)
 
 
 
-![[images/Pasted image 20251206123210.png]]
+![](images/Pasted image 20251206123210.png)
 
 After loggin in as the user i got nothing like there was no endpoint and things to do so i decided to inspect and see if there is anthing commented on the source code but nothing , then i went onto the application tab to see if we can do anything with the cookie with the realisation of we got a **secret jwt token from first **
 
 
-![[images/Pasted image 20251206124452.png]]
+![](images/Pasted image 20251206124452.png)
 
-![[images/Pasted image 20251206124534.png]]
+![](images/Pasted image 20251206124534.png)
 
 this decoded to this and i thought of changing the name to  admin and signing it with this secret 
 str!k3b4nk@1009%sup3r!s3cr37 that we found from the previous
-![[images/Pasted image 20251206113825.png]]
+![](images/Pasted image 20251206113825.png)
 changed the cookie in the application tab
-![[images/Pasted image 20251206125110.png]]
+![](images/Pasted image 20251206125110.png)
 
 
-![[images/Pasted image 20251206113519.png]]
+![](images/Pasted image 20251206113519.png)
 
 reloaded the page and  got the flag!!
 
 
 
-![[images/Pasted image 20251206113816.png]]
+![](images/Pasted image 20251206113816.png)
 
 
 
@@ -408,8 +408,8 @@ reloaded the page and  got the flag!!
 
 
 
-![[images/Pasted image 20251214112737.png]]
+![](images/Pasted image 20251214112737.png)
 
 
-![[images/Pasted image 20251214112717.png]]
+![](images/Pasted image 20251214112717.png)
 
